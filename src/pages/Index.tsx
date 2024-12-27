@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { Total } from "@/types/totales";
 import { SummaryCards } from "@/components/dashboard/SummaryCards";
 import { ComparisonChart } from "@/components/dashboard/ComparisonChart";
@@ -12,7 +11,7 @@ const fetchTotales = async (): Promise<Total[]> => {
     throw new Error('Network response was not ok');
   }
   const data = await response.json();
-  return data.totales;
+  return data.metricas.totales;
 };
 
 const Index = () => {
