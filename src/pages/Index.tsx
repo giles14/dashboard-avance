@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { Total } from "@/types/totales";
 import { SummaryCards } from "@/components/dashboard/SummaryCards";
 import { ComparisonChart } from "@/components/dashboard/ComparisonChart";
