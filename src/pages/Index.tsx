@@ -3,7 +3,8 @@ import { Total } from "@/types/totales";
 import { SummaryCards } from "@/components/dashboard/SummaryCards";
 import { ComparisonChart } from "@/components/dashboard/ComparisonChart";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { useEffect } from "react";
 
 const fetchTotales = async (): Promise<Total[]> => {
   const response = await fetch('https://dockserver.lat/checar_avance_promo?fecha_inicio=2024-12-23');
@@ -21,6 +22,16 @@ const Index = () => {
     queryFn: fetchTotales,
   });
 
+  useEffect(() => {
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "No se pudieron cargar los datos. Por favor, intente más tarde.",
+      });
+    }
+  }, [error, toast]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 p-4 md:p-8 flex items-center justify-center">
@@ -30,11 +41,6 @@ const Index = () => {
   }
 
   if (error) {
-    toast({
-      variant: "destructive",
-      title: "Error",
-      description: "No se pudieron cargar los datos. Por favor, intente más tarde.",
-    });
     return (
       <div className="min-h-screen bg-gray-50 p-4 md:p-8 flex items-center justify-center">
         <p className="text-lg text-red-500">Error al cargar los datos</p>
